@@ -1,1 +1,2 @@
-# gepetton.github.io
+# 블로그
+https://gepetton.github.io/
