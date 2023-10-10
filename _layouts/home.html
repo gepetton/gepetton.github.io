@@ -4,6 +4,12 @@ layout: archive
 
 {{ content }}
 
+<ul class="category-list">
+  {% for category in site.categories %}
+    <li><a href="#{{ category | first | slugify }}">{{ category | first }}</a></li>
+  {% endfor %}
+</ul>
+
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
