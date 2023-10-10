@@ -5,8 +5,11 @@ layout: archive
 {{ content }}
 
 <ul class="category-list">
-  {% for category in site.categories %}
-    <li><a href="#{{ category | first | slugify }}">{{ category | first }}</a></li>
+  {% for post in site.posts %}
+  {% if post.categories.size > 0 %}
+      {% assign first_category = post.categories | first %}
+      <li><a href="#{{ first_category | slugify }}">{{ first_category }}</a></li>
+    {% endif %}
   {% endfor %}
 </ul>
 
