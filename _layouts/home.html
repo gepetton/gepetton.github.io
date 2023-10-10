@@ -4,16 +4,27 @@ layout: archive
 
 {{ content }}
 
-<ul class="category-list">
-  {% for post in site.posts %}
-  {% if post.categories.size > 0 %}
-      {% assign first_category = post.categories | first %}
-      <li><a href="#{{ first_category | slugify }}">{{ first_category }}</a></li>
+
+{% assign entries_layout = page.entries_layout | default: 'list' %}
+{% for i in (1..categories_max) reversed %}
+  {% for category in site.categories %}
+    {% if category[1].size == i %}
+      <section id="{{ category[0] | slugify | downcase }}" class="taxonomy__section">
+        <h2 class="archive__subtitle">{{ category[0] }}</h2>
+        <div class="entries-{{ entries_layout }}">
+          {% for post in category.last %}
+            {% include archive-single.html type=entries_layout %}
+          {% endfor %}
+        </div>
+      </section>
     {% endif %}
   {% endfor %}
-</ul>
+{% endfor %}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+
+
+
+
 
 {% if paginator %}
   {% assign posts = paginator.posts %}
