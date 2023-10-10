@@ -105,7 +105,7 @@ analytics:
 # Site Author
 author:
   name             : #""
-  avatar           : "/assets/profile.jpg"
+  avatar           : "/assets/images/profile.jpg"
   bio              : "조금씩 성장중"
   location         : "South Korea"
   email            : "sehyeon73@gmail.com"
