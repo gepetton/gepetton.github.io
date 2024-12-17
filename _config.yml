@@ -49,11 +49,12 @@ social:
 # Site Verification Settings
 webmaster_verifications:
   google: "irmAu_g_PMBOk6Qdom_fJ8fojOqmtwRPoyveBEC2RPE"
-  bing: "f8c3882b87b8d79ba966d8d7477e26485193a508"
+  bing: #
   alexa: # fill in your Alexa verification code
   yandex: # fill in your Yandex verification code
   baidu: # fill in your Baidu verification code
   facebook: # fill in your Facebook verification code
+  naver: "f8c3882b87b8d79ba966d8d7477e26485193a508"
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
