@@ -170,10 +170,16 @@ script_includes:
           {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
         {% endif %}
       </div>
-
       {% include post-sharing.html lang=lang %}
     </div>
     <!-- .post-tail-bottom -->
+    <script src="https://utteranc.es/client.js"
+    repo="gepetton/gepetton.github.io"
+    issue-term="url"
+    theme="github-dark"
+    crossorigin="anonymous"
+    async>
+    </script>
   </div>
   <!-- div.post-tail-wrapper -->
 </article>
