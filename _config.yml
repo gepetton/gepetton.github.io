@@ -16,10 +16,10 @@ timezone: Asia/Seoul
 
 title: Dev space # the main title
 
-tagline: be the best # it will display as the subtitle
+tagline: The Growth Record # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  
+
 future: true
 published: true
 
