@@ -1,5 +1,4 @@
 name: "Build and Deploy"
-
 on:
   push:
     branches:
@@ -26,43 +25,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true  # ✅ 자동으로 bundle install 실행됨
-
-      - name: Verify Gems (debug step)
-        run: |
-          echo "Checking installed gems..."
-          bundle list | grep chirpy || echo "❌ Chirpy not installed!"
-
-      - name: Build with Jekyll
-        run: |
-          bundle exec jekyll build -d "_site"
-        env:
-          JEKYLL_ENV: production
-
-      - name: Test site with HTMLProofer
-        run: |
-          bundle exec htmlproofer ./_site \
-            --disable-external \
-            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
-        continue-on-error: true
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build -d "_site${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Test site
+        run: |
+          bundle exec htmlproofer _site \
+            --disable-external \
+            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "_site"
+          path: "_site${{ steps.pages.outputs.base_path }}"
 
   deploy:
     environment:
