@@ -1,5 +1,6 @@
 ---
 title: "JMeter를 활용한 API 성능 테스트 및 개선 시도1"
+date: 2025-05-21
 categories: [개발]
 tags: [Spring, cache, jpa, mysql, jmeter, 성능최적화, api, 백엔드]
 ---
@@ -14,22 +15,22 @@ tags: [Spring, cache, jpa, mysql, jmeter, 성능최적화, api, 백엔드]
 ## 데이터베이스 구조
 Patient 테이블은 다음과 같은 스키마로 구성되어 있다.
 
-<img width="300" alt="Image" src="/assets/images/20250522_1.webp" />
+<img width="300" alt="Image" src="/assets/img/20250522_1.webp" />
 
 ## API 구현 코드
 
 ### Controller 코드
-<img width="600" alt="Image" src="/assets/images/20250522_2.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_2.webp" />
 
 ### Service 코드
-<img width="700" alt="Image" src="/assets/images/20250522_3.webp" />
+<img width="700" alt="Image" src="/assets/img/20250522_3.webp" />
 
 ### 주요 쿼리
 Hospital ID와 Department로 환자를 조회하는 쿼리:
-<img width="600" alt="Image" src="/assets/images/20250522_4.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_4.webp" />
 
 의료진 ID로 의료진을 조회하는 쿼리:
-<img width="600" alt="Image" src="/assets/images/20250522_5.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_5.webp" />
 
 # 성능 테스트 진행
 
@@ -44,7 +45,7 @@ JMeter를 활용해 API의 응답속도를 측정했다. 테스트 설정은 다
 - Ramp-up period: 10
 - Loop Count: 5
 
-<img width="600" alt="Image" src="/assets/images/20250522_6.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_6.webp" />
 
 테스트 결과, 평균 응답시간은 91ms, 최대 응답시간은 351ms로 측정되었다. 데이터 양이 실제 환경보다 적음에도 불구하고 중간중간 병목이 발생하는 지점이 존재했다.
 
@@ -71,15 +72,15 @@ JMeter를 활용해 API의 응답속도를 측정했다. 테스트 설정은 다
 ## 캐싱 적용 코드
 
 Hospital ID와 Department로 환자 조회 캐싱 적용 코드:
-<img width="600" alt="Image" src="/assets/images/20250522_7.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_7.webp" />
 
 의료진 조회 캐싱 적용 코드:
-<img width="600" alt="Image" src="/assets/images/20250522_8.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_8.webp" />
 
 
 # 개선 결과
 
 캐싱 적용 후 API 응답속도가 크게 개선되었다:
-<img width="600" alt="Image" src="/assets/images/20250522_9.webp" />
+<img width="600" alt="Image" src="/assets/img/20250522_9.webp" />
 
 캐싱 적용 후 평균 응답시간은 47ms로, 기존 91ms 대비 약 48% 향상되었다. 최고 응답시간이 300ms대로 기록된 경우는 캐시를 처음 저장하는 과정에서 발생했다. 캐시가 한 번 생성된 이후에는 DB 접근 시간이 거의 없어져 대부분의 요청이 매우 빠르게 처리되었다.
